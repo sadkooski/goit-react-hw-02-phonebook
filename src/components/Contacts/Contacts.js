@@ -1,3 +1,9 @@
-export const Contacts = ({ e }) => {
-  return <ul></ul>;
+export const Contacts = ({ name }) => {
+  return (
+    <ul>
+      <li>
+        <span>{name}</span>
+      </li>
+    </ul>
+  );
 };
