@@ -1,9 +1,13 @@
-export const Contacts = ({ name }) => {
+export const Contacts = ({ name, number }) => {
   return (
-    <ul>
-      <li>
-        <span>{name}</span>
-      </li>
-    </ul>
+    <div>
+      <ul>
+        <li>
+          <span>
+            {name}: {number}
+          </span>
+        </li>
+      </ul>
+    </div>
   );
 };
