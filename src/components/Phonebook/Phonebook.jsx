@@ -28,43 +28,47 @@ class Phonebook extends Component {
     const form = evt.currentTarget;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
-    const contacts = this.state.contacts;
-    const contact = {
+    const newContact = {
       name: name,
       id: nanoid(),
       number: number,
     };
 
-    contacts.push(contact);
-
-    this.setState({ name: name, contacts: contacts, number: number });
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, newContact],
+      name: '',
+      number: '',
+    }));
 
     form.reset();
   };
 
   handleBrowser = evt => {
-    this.setState({ filter: evt.target.value });
-
-    const browser = evt.currentTarget;
-    const input = browser.elements.browser.value;
-
-    console.log(input);
+    const filterValue = evt.target.value.toLowerCase();
+    this.setState({ filter: filterValue });
   };
 
   render() {
-    const contactsArr = this.state.contacts;
-    const contactsStatus = this.state.contacts.length;
+    const { contacts, filter } = this.state;
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter)
+    );
+    const contactsStatus = filteredContacts.length;
+
     return (
       <div>
         <Title title="Phonebook" />
         <Form handler={this.handleSubmit} />
         <Title title="Contacts" />
-        <Browser hnadler={this.handleBrowser} />
-        {contactsStatus > 0
-          ? contactsArr.map(contact => (
-              <Contacts number={contact.number} name={contact.name} />
-            ))
-          : null}
+        <Browser handler={this.handleBrowser} />
+        {contactsStatus > 0 &&
+          filteredContacts.map(contact => (
+            <Contacts
+              key={contact.id}
+              number={contact.number}
+              name={contact.name}
+            />
+          ))}
       </div>
     );
   }
