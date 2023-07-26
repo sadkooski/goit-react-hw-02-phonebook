@@ -58,14 +58,11 @@ class App extends Component {
     const button = evt.currentTarget;
     const name = button.name;
     const { contacts } = this.state;
-
     const newContactsArr = contacts.filter(contact => contact.name !== name);
 
     this.setState({
       contacts: newContactsArr,
     });
-
-    console.log(newContactsArr);
   };
 
   render() {
