@@ -1,4 +1,4 @@
-export const Form = ({ handler }) => {
+export const ContactForm = ({ handler }) => {
   return (
     <form onSubmit={handler}>
       <span>Name</span>

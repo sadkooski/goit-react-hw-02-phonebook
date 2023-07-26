@@ -1,4 +1,4 @@
-export const Browser = ({ handler }) => {
+export const Filter = ({ handler }) => {
   return (
     <div>
       <span>Find contacts by name</span>

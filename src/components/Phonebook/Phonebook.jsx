@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { Form } from 'components/PhonebookForm/PhonebookForm';
-import { Contacts } from 'components/Contacts/Contacts';
-import { Title } from 'components/Title/Title';
-import { Browser } from 'components/ContactsBrowser/ContactsBrowser';
+import { ContactForm } from 'components/ContactForm/ContactForm';
+import { ContactList } from 'components/ContactList/ContactList';
+import { Filter } from 'components/Filter/Filter';
 
 class Phonebook extends Component {
   constructor() {
@@ -25,9 +24,19 @@ class Phonebook extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
 
+    const contacts = this.state.contacts;
     const form = evt.currentTarget;
     const name = form.elements.name.value;
     const number = form.elements.number.value;
+
+    console.log(contacts, name);
+    // if (contacts.length > 0) {
+    contacts.forEach(contact => {
+      if (contact.name === name) {
+        return alert(`{name} is already in contacts.`);
+      }
+    });
+
     const newContact = {
       name: name,
       id: nanoid(),
@@ -57,13 +66,13 @@ class Phonebook extends Component {
 
     return (
       <div>
-        <Title title="Phonebook" />
-        <Form handler={this.handleSubmit} />
-        <Title title="Contacts" />
-        <Browser handler={this.handleBrowser} />
+        <h1>Phonebook</h1>
+        <ContactForm handler={this.handleSubmit} />
+        <h2>Contacts</h2>
+        <Filter handler={this.handleBrowser} />
         {contactsStatus > 0 &&
           filteredContacts.map(contact => (
-            <Contacts
+            <ContactList
               key={contact.id}
               number={contact.number}
               name={contact.name}
